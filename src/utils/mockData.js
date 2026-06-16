@@ -1,0 +1,84 @@
+/**
+ * Mock data representing the Coffee R Us e-commerce database
+ */
+export const initialData = {
+  store_info: [
+    {
+      id: 1,
+      name: "Coffee R Us",
+      description: "The go to store for your coffee needs",
+      phone_number: "555-5555",
+    },
+  ],
+  locations: [
+    { id: 1, name: "Location 1" },
+    { id: 2, name: "Location 2" },
+    { id: 3, name: "Location 3" },
+    { id: 4, name: "Location 4" },
+  ],
+  coffee: [
+    {
+      id: 1,
+      description: "Medium Roast, nutty flavor",
+      name: "Vanilla Bean",
+      origin: "Colombia",
+      price: 10.0,
+    },
+    {
+      id: 2,
+      description: "Dark Roast, Rich flavor",
+      name: "House Blend",
+      origin: "Vietnam",
+      price: 12.0,
+    },
+    {
+      id: 3,
+      description: "Light Roast, Fruity notes",
+      name: "Ethiopian Sunrise",
+      origin: "Ethiopia",
+      price: 14.0,
+    },
+    {
+      id: 4,
+      description: "Medium Roast, Smooth and balanced",
+      name: "Brazilian Santos",
+      origin: "Brazil",
+      price: 11.5,
+    },
+    {
+      id: 5,
+      description: "Dark Roast, Bold and smoky",
+      name: "French Roast",
+      origin: "France (blend)",
+      price: 13.0,
+    },
+    {
+      id: 6,
+      description: "Light Roast, Bright and acidic",
+      name: "Kenyan AA",
+      origin: "Kenya",
+      price: 15.0,
+    },
+    {
+      id: 7,
+      description: "Medium Roast, Floral and sweet",
+      name: "Sumatra Mandheling",
+      origin: "Indonesia",
+      price: 12.5,
+    },
+    {
+      id: 8,
+      description: "Dark Roast, Full-bodied and rich",
+      name: "Espresso Blend",
+      origin: "Italy (blend)",
+      price: 13.5,
+    },
+  ],
+};
+
+/**
+ * Simulates API delay for realistic data fetching
+ */
+export const simulateApiDelay = (ms = 300) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

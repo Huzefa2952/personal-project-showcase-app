@@ -1,0 +1,106 @@
+.product-card {
+  background-color: #e8e0d8;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-name {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.product-description {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.product-origin {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-price {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #2c2c2c;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.product-price-editor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.product-price-editor label {
+  font-weight: 600;
+  color: #333;
+}
+
+.product-price-editor input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-price-editor input:focus {
+  outline: none;
+  border-color: #8b7355;
+  box-shadow: 0 0 0 2px rgba(139, 115, 85, 0.2);
+}
+
+.edit-btn {
+  background-color: #8b7355;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.edit-btn:hover {
+  background-color: #6f5a45;
+}
+
+.edit-btn:active {
+  background-color: #5a4936;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    padding: 1rem;
+  }
+
+  .product-name {
+    font-size: 1.1rem;
+  }
+
+  .product-price {
+    font-size: 1.1rem;
+  }
+}
