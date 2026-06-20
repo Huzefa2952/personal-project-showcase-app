@@ -12,7 +12,7 @@ export function ProductCard({
 }) {
   const handlePriceChange = (e) => {
     const newPrice = e.target.value;
-    onPriceChange?.(product.id, parseFloat(newPrice) || newPrice);
+    onPriceChange?.(product.id, newPrice);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { initialData, simulateApiDelay } from "../utils/mockData";
 
 /**
@@ -7,11 +7,56 @@ import { initialData, simulateApiDelay } from "../utils/mockData";
  */
 export const useCoffeeData = () => {
   const [products, setProducts] = useState(initialData.coffee);
-  const [storeInfo] = useState(initialData.store_info[0]);
-  const [locations] = useState(initialData.locations);
+  const [storeInfo, setStoreInfo] = useState(initialData.store_info[0]);
+  const [locations, setLocations] = useState(initialData.locations);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const nextIdRef = useRef(initialData.coffee.length + 1);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch("/db.json");
+        if (!response.ok) {
+          throw new Error("Failed to load db.json");
+        }
+
+        const data = await response.json();
+
+        if (!isMounted) return;
+
+        const loadedProducts = data.coffee || initialData.coffee;
+        const loadedStoreInfo = data.store_info?.[0] || initialData.store_info[0];
+        const loadedLocations = data.locations || initialData.locations;
+
+        setProducts(loadedProducts);
+        setStoreInfo(loadedStoreInfo);
+        setLocations(loadedLocations);
+        nextIdRef.current = loadedProducts.length + 1;
+      } catch (err) {
+        if (!isMounted) return;
+        setProducts(initialData.coffee);
+        setStoreInfo(initialData.store_info[0]);
+        setLocations(initialData.locations);
+        setError("Using fallback product data.");
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   /**
    * Simulates GET request to fetch all products
@@ -21,14 +66,21 @@ export const useCoffeeData = () => {
     setError(null);
     try {
       await simulateApiDelay();
-      return products;
+      const response = await fetch("/db.json");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json();
+      const loadedProducts = data.coffee || initialData.coffee;
+      setProducts(loadedProducts);
+      return loadedProducts;
     } catch (err) {
       setError("Failed to fetch products");
       throw err;
     } finally {
       setLoading(false);
     }
-  }, [products]);
+  }, []);
 
   /**
    * Simulates POST request to add a new product
@@ -65,14 +117,20 @@ export const useCoffeeData = () => {
     setError(null);
     try {
       await simulateApiDelay();
+      const normalizedUpdates = { ...updates };
+
+      if (normalizedUpdates.price !== undefined) {
+        normalizedUpdates.price = parseFloat(normalizedUpdates.price);
+      }
+
       setProducts((prev) =>
         prev.map((product) =>
           product.id === id
-            ? { ...product, ...updates, price: parseFloat(updates.price) }
+            ? { ...product, ...normalizedUpdates }
             : product
         )
       );
-      return { id, ...updates };
+      return { id, ...normalizedUpdates };
     } catch (err) {
       setError("Failed to update product");
       throw err;

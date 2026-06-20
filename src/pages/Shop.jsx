@@ -1,7 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useCoffeeData } from "../hooks/useCoffeeData";
 import { SearchBar } from "../components/SearchBar";
 import { ProductCard } from "../components/ProductCard";
+import { AIAssistant } from "../components/AIAssistant";
 import "./Shop.css";
 
 /**
@@ -10,6 +11,10 @@ import "./Shop.css";
 export function Shop() {
   const { products, locations, loading } = useCoffeeData();
   const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
 
   /**
    * Handles search and filtering of products
@@ -45,6 +50,7 @@ export function Shop() {
       <div className="shop-container">
         <aside className="search-sidebar">
           <SearchBar onSearch={handleSearch} locations={locations} />
+          <AIAssistant products={products} />
         </aside>
 
         <main className="products-section">

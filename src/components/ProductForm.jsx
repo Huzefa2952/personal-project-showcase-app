@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProductForm.css";
 
 /**
@@ -6,16 +6,32 @@ import "./ProductForm.css";
  * Handles form validation and submission
  */
 export function ProductForm({ onSubmit, initialValues = null, isLoading = false }) {
-  const [formData, setFormData] = useState(
-    initialValues || {
-      name: "",
-      description: "",
-      origin: "",
-      price: "",
-    }
-  );
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    origin: "",
+    price: "",
+  });
 
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormData({
+        name: initialValues.name || "",
+        description: initialValues.description || "",
+        origin: initialValues.origin || "",
+        price: initialValues.price ?? "",
+      });
+    } else {
+      setFormData({
+        name: "",
+        description: "",
+        origin: "",
+        price: "",
+      });
+    }
+  }, [initialValues]);
 
   /**
    * Validates form data

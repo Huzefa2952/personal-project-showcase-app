@@ -1,0 +1,58 @@
+.ai-assistant {
+  margin-top: 1rem;
+  background: #fffaf4;
+  border: 1px solid #e2c9a5;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.ai-assistant h3 {
+  margin: 0 0 0.25rem;
+  color: #5a3d1b;
+}
+
+.ai-helper-text {
+  margin: 0 0 0.75rem;
+  color: #7a5a39;
+  font-size: 0.9rem;
+}
+
+.ai-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-form input {
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d8c1a0;
+  border-radius: 8px;
+}
+
+.ai-form button {
+  background: #7b4f2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 0.9rem;
+  cursor: pointer;
+}
+
+.ai-response {
+  margin-top: 0.75rem;
+  background: #f7efe1;
+  border-radius: 8px;
+  padding: 0.8rem;
+  color: #5a3d1b;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .ai-form {
+    flex-direction: column;
+  }
+
+  .ai-form button {
+    min-height: 2.75rem;
+  }
+}
